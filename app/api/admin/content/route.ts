@@ -131,8 +131,13 @@ export async function POST(req: Request) {
       link_url: payload.link_url as string,
       author_name: payload.author_name as string,
       event_name: payload.event_name as string,
-      rating: payload.rating ?? null,
-      sort_order: payload.sort_order as number,
+      rating:
+        typeof payload.rating === 'number'
+          ? payload.rating
+          : payload.rating
+            ? Number(payload.rating)
+            : null,
+      sort_order: Number(payload.sort_order ?? 0),
       active: payload.active as boolean,
       meta: payload.meta ? JSON.parse(payload.meta as string) : {},
     };
