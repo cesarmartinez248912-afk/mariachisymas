@@ -1,5 +1,4 @@
-import { Query } from 'node-appwrite';
-import { getAppwriteDatabasesClient, hasAppwriteConfig, APPWRITE_DATABASE_ID, APPWRITE_COLLECTION_ID } from './appwrite/server';
+import { getNeonClient, hasNeonConfig } from './neon/server';
 
 export type ContentSection = 'hero' | 'gallery' | 'videos' | 'testimonials' | 'settings';
 export type ContentKind = 'image' | 'video' | 'text' | 'quote' | 'audio';
@@ -43,7 +42,6 @@ function parseMeta(meta: unknown): Record<string, unknown> {
   if (meta && typeof meta === 'object' && !Array.isArray(meta)) {
     return meta as Record<string, unknown>;
   }
-
   if (typeof meta === 'string' && meta.trim()) {
     try {
       const parsed = JSON.parse(meta);
@@ -54,43 +52,41 @@ function parseMeta(meta: unknown): Record<string, unknown> {
       return {};
     }
   }
-
   return {};
 }
 
-function mapDocument(doc: any): SiteContent {
+export function mapRow(row: Record<string, unknown>): SiteContent {
   return {
-    id: doc.$id,
-    section: doc.section,
-    kind: doc.kind,
-    title: doc.title ? String(doc.title) : null,
-    description: doc.description ? String(doc.description) : null,
-    media_url: doc.media_url ? String(doc.media_url) : null,
-    embed_url: doc.embed_url ? String(doc.embed_url) : null,
-    link_url: doc.link_url ? String(doc.link_url) : null,
-    author_name: doc.author_name ? String(doc.author_name) : null,
-    event_name: doc.event_name ? String(doc.event_name) : null,
-    rating: doc.rating ?? null,
-    sort_order: Number(doc.sort_order ?? 0),
-    active: Boolean(doc.active),
-    meta: parseMeta(doc.meta),
+    id: String(row.id),
+    section: row.section as ContentSection,
+    kind: row.kind as ContentKind,
+    title: row.title ? String(row.title) : null,
+    description: row.description ? String(row.description) : null,
+    media_url: row.media_url ? String(row.media_url) : null,
+    embed_url: row.embed_url ? String(row.embed_url) : null,
+    link_url: row.link_url ? String(row.link_url) : null,
+    author_name: row.author_name ? String(row.author_name) : null,
+    event_name: row.event_name ? String(row.event_name) : null,
+    rating: row.rating != null ? Number(row.rating) : null,
+    sort_order: Number(row.sort_order ?? 0),
+    active: Boolean(row.active),
+    meta: parseMeta(row.meta),
   };
 }
 
 export async function fetchContent(): Promise<SiteContent[]> {
-  if (!hasAppwriteConfig()) return defaultContent;
+  if (!hasNeonConfig()) return defaultContent;
 
-  const databases = getAppwriteDatabasesClient();
-  if (!databases) return defaultContent;
+  const sql = getNeonClient();
+  if (!sql) return defaultContent;
 
   try {
-    const response = await databases.listDocuments(
-      APPWRITE_DATABASE_ID,
-      APPWRITE_COLLECTION_ID,
-      [Query.orderAsc('section'), Query.orderAsc('sort_order')],
-    );
-
-    return response.documents.map(mapDocument);
+    const rows = await sql`
+      SELECT * FROM site_content
+      WHERE active = true
+      ORDER BY section ASC, sort_order ASC
+    `;
+    return rows.map(mapRow);
   } catch {
     return defaultContent;
   }
