@@ -31,14 +31,11 @@ export function TestimonialsAudio({ testimonials }: { testimonials: SiteContent[
           <div className="rounded-[1.5rem] border border-white/8 bg-white/[0.03] p-6 shadow-[0_14px_40px_rgba(0,0,0,.2)]">
             <div className="flex items-center gap-3 text-gold2">
               <Music4 className="h-5 w-5" />
-              <h3 className="text-2xl font-semibold text-text" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Demo musical</h3>
+              <h3 className="text-2xl font-semibold text-text" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Escucha un demo</h3>
             </div>
-            <p className="mt-3 text-sm leading-7 text-muted">Muestra una pieza breve para reforzar confianza sin romper la navegación limpia.</p>
+            <p className="mt-3 text-sm leading-7 text-muted">Una muestra de nuestro repertorio para que sientas la calidad antes de contactarnos.</p>
             <div className="mt-6 rounded-2xl border border-white/8 bg-[#111114]/70 p-4">
               <audio controls className="w-full" src="/audio/demo.wav" />
-            </div>
-            <div className="mt-6 rounded-2xl border border-gold/15 bg-gold/8 p-4 text-sm text-muted">
-              Sube una pista corta de serenata, bolero o pieza instrumental para reforzar presencia.
             </div>
             <a href="#contacto" className="mt-6 inline-flex items-center gap-2 rounded-full border border-gold/20 bg-transparent px-5 py-3 text-sm text-text transition hover:bg-gold/10">
               <MessageCircle className="h-4 w-4 text-gold2" /> Pedir información
@@ -49,3 +46,4 @@ export function TestimonialsAudio({ testimonials }: { testimonials: SiteContent[
     </section>
   );
 }
+

@@ -1,4 +1,4 @@
-import { CalendarHeart, BriefcaseBusiness, PartyPopper, HeartHandshake, Mic2, Music2, Sparkles } from 'lucide-react';
+import { CalendarHeart, BriefcaseBusiness, PartyPopper, HeartHandshake, Mic2, Music2, Sparkles, Gift } from 'lucide-react';
 
 const services = [
   { icon: Music2, title: 'Serenatas', text: 'Momentos íntimos con repertorio romántico y presencia impecable.' },
@@ -8,6 +8,7 @@ const services = [
   { icon: BriefcaseBusiness, title: 'Eventos empresariales', text: 'Una experiencia sobria y premium para marcas y recepciones.' },
   { icon: Mic2, title: 'Trío romántico', text: 'Boleros y canciones inolvidables con interpretación cálida.' },
   { icon: Sparkles, title: 'Mariachi completo', text: 'Presencia contundente para grandes celebraciones y escenarios.' },
+  { icon: Gift, title: 'Bautizos y posadas', text: 'Festejos familiares con el calor de la música tradicional mexicana.' },
 ];
 
 export function ServicesGrid() {

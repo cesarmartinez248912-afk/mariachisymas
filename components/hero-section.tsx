@@ -77,9 +77,9 @@ export function HeroSection({ hero }: { hero: SiteContent[] }) {
 
             <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
               <div className="rounded-[1.5rem] border border-white/10 bg-black/35 p-5 backdrop-blur-xl">
-                <p className="text-[11px] uppercase tracking-[0.32em] text-gold2/85">Experiencia visual premium</p>
+                <p className="text-[11px] uppercase tracking-[0.32em] text-gold2/85">Disponibles para tu evento</p>
                 <p className="mt-2 text-sm leading-7 text-text/90">
-                  Un diseño limpio para que la música y las imágenes se sientan protagonistas.
+                  Agenda tu fecha con tiempo. Escríbenos por WhatsApp y te respondemos el mismo día.
                 </p>
               </div>
             </div>

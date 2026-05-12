@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'Mariachi Luxe',
   description: 'Sitio premium de mariachi y trío musical con galería, videos, testimonios y contacto por WhatsApp.',
-  metadataBase: new URL('https://example.com'),
+  metadataBase: new URL('https://mariachiymas.vercel.app'),
   openGraph: {
     title: 'Mariachi Luxe',
     description: 'Presentaciones elegantes para bodas, serenatas, XV años y eventos privados.',

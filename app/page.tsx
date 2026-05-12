@@ -6,7 +6,7 @@ import { GallerySection } from '@/components/gallery';
 import { TestimonialsAudio } from '@/components/testimonials-audio';
 import { ContactForm } from '@/components/contact-form';
 import { ScrollReveal } from '@/components/scroll-reveal';
-import { ChevronUp, MessageCircle } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 export const dynamic = 'force-dynamic';
 
@@ -61,8 +61,8 @@ export default async function HomePage() {
         <div data-reveal>
           <div className="mb-10 max-w-3xl">
             <p className="text-[11px] uppercase tracking-[0.35em] text-gold2/85">Videos</p>
-            <h2 className="mt-4 text-3xl font-semibold text-text md:text-5xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Contenido audiovisual con ritmo suave</h2>
-            <p className="mt-4 text-sm leading-7 text-muted md:text-base">Agrega o reemplaza videos y muéstralos aquí con un estilo limpio y elegante.</p>
+            <h2 className="mt-4 text-3xl font-semibold text-text md:text-5xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>Míranos en acción</h2>
+            <p className="mt-4 text-sm leading-7 text-muted md:text-base">Presentaciones reales para que veas nuestra calidad antes de contactarnos.</p>
           </div>
           <div className="grid gap-5 lg:grid-cols-2">
             {content.videos.map((video, index) => (
@@ -122,9 +122,6 @@ export default async function HomePage() {
 
       <a href="https://wa.me/5210000000000" target="_blank" rel="noreferrer" className="fixed bottom-5 right-5 z-50 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-5 py-4 text-sm font-semibold text-white shadow-[0_20px_50px_rgba(37,211,102,.3)] transition hover:scale-105">
         <MessageCircle className="h-5 w-5" /> WhatsApp
-      </a>
-      <a href="#inicio" className="fixed bottom-5 left-5 z-50 inline-flex items-center rounded-full border border-white/10 bg-white/[0.05] px-4 py-3 text-sm text-text shadow-[0_12px_35px_rgba(0,0,0,.2)] hover:bg-white/[0.08]">
-        <ChevronUp className="h-4 w-4" />
       </a>
     </main>
   );
