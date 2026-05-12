@@ -2,11 +2,11 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Mariachi y Trío Musical para Eventos Especiales',
-  description: 'Página premium para promocionar mariachi y trío musical con galería, videos, testimonios, formulario y panel admin.',
+  title: 'Mariachi Luxe',
+  description: 'Sitio premium de mariachi y trío musical con galería, videos, testimonios y contacto por WhatsApp.',
   metadataBase: new URL('https://example.com'),
   openGraph: {
-    title: 'Mariachi y Trío Musical para Eventos Especiales',
+    title: 'Mariachi Luxe',
     description: 'Presentaciones elegantes para bodas, serenatas, XV años y eventos privados.',
     type: 'website',
   },

@@ -60,7 +60,7 @@ Ahí podrás:
 
 ## Envío de formulario
 
-La ruta `/api/contact` envía el correo usando Resend. Si no configuras `RESEND_API_KEY`, el endpoint responde en modo demostración para que la interfaz siga funcionando.
+El contacto público dirige a WhatsApp. La ruta `/api/contact` quedó solo como compatibilidad.
 
 ## Desarrollo
 

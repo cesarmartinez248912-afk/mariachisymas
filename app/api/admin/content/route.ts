@@ -1,4 +1,5 @@
 import { NextResponse } from 'next/server';
+import crypto from 'crypto';
 import { ID, Query } from 'node-appwrite';
 import { isAdminAuthed } from '@/lib/auth';
 import { defaultContent, type SiteContent } from '@/lib/content';
@@ -6,8 +7,8 @@ import { getAppwriteDatabasesClient, hasAppwriteConfig, APPWRITE_DATABASE_ID, AP
 
 let memoryStore: SiteContent[] = [...defaultContent];
 
-function requireAdmin() {
-  if (!isAdminAuthed()) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
+async function requireAdmin() {
+  if (!(await isAdminAuthed())) return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   return null;
 }
 
@@ -88,7 +89,7 @@ function fromAppwriteDocument(doc: any): SiteContent {
 }
 
 export async function GET() {
-  const unauthorized = requireAdmin();
+  const unauthorized = await requireAdmin();
   if (unauthorized) return unauthorized;
 
   if (!hasAppwriteConfig()) {
@@ -112,7 +113,7 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-  const unauthorized = requireAdmin();
+  const unauthorized = await requireAdmin();
   if (unauthorized) return unauthorized;
   const body = (await req.json()) as Record<string, unknown>;
 
@@ -121,8 +122,8 @@ export async function POST(req: Request) {
   if (!hasAppwriteConfig()) {
     const item: SiteContent = {
       id: crypto.randomUUID(),
-      section: payload.section,
-      kind: payload.kind,
+      section: payload.section as SiteContent['section'],
+      kind: payload.kind as SiteContent['kind'],
       title: payload.title as string,
       description: payload.description as string,
       media_url: payload.media_url as string,
@@ -131,7 +132,7 @@ export async function POST(req: Request) {
       author_name: payload.author_name as string,
       event_name: payload.event_name as string,
       rating: payload.rating ?? null,
-      sort_order: payload.sort_order,
+      sort_order: payload.sort_order as number,
       active: payload.active as boolean,
       meta: payload.meta ? JSON.parse(payload.meta as string) : {},
     };
@@ -155,7 +156,7 @@ export async function POST(req: Request) {
 }
 
 export async function PUT(req: Request) {
-  const unauthorized = requireAdmin();
+  const unauthorized = await requireAdmin();
   if (unauthorized) return unauthorized;
   const body = await req.json();
   const id = body.id as string | undefined;
@@ -191,7 +192,7 @@ export async function PUT(req: Request) {
 }
 
 export async function DELETE(req: Request) {
-  const unauthorized = requireAdmin();
+  const unauthorized = await requireAdmin();
   if (unauthorized) return unauthorized;
   const { id } = await req.json();
   if (!id) return NextResponse.json({ error: 'Falta id' }, { status: 400 });

@@ -3,6 +3,6 @@ import { AdminClient } from './AdminClient';
 
 export const dynamic = 'force-dynamic';
 
-export default function AdminPage() {
-  return <AdminClient initialAuthed={isAdminAuthed()} />;
+export default async function AdminPage() {
+  return <AdminClient initialAuthed={await isAdminAuthed()} />;
 }

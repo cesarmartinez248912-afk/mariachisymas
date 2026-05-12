@@ -13,9 +13,20 @@ export function SectionTitle({ eyebrow, title, description }: { eyebrow: string;
   );
 }
 
-export function Button({ className, children, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  asChild?: boolean;
+};
+
+export function Button({ className, children, asChild: _asChild, type, ...props }: ButtonProps) {
   return (
-    <button {...props} className={cn('inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-gold/70 disabled:opacity-60', className)}>
+    <button
+      {...props}
+      type={type ?? 'button'}
+      className={cn(
+        'inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-gold/70 disabled:opacity-60',
+        className,
+      )}
+    >
       {children}
     </button>
   );

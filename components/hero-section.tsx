@@ -1,55 +1,101 @@
-import { Play, ArrowRight } from 'lucide-react';
-import { Button, Pill } from './ui';
+import { ArrowRight, Star, Sparkles, Play } from 'lucide-react';
+import type { ReactNode } from 'react';
 import type { SiteContent } from '@/lib/content';
+
+function ActionLink({ href, children, variant = 'primary' }: { href: string; children: ReactNode; variant?: 'primary' | 'secondary' }) {
+  const base = 'inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-semibold transition duration-300';
+  const styles =
+    variant === 'primary'
+      ? 'bg-gold text-black hover:bg-gold2 hover:-translate-y-0.5 shadow-glow'
+      : 'border border-white/10 bg-white/[0.03] text-text hover:bg-white/[0.06] hover:-translate-y-0.5';
+
+  return (
+    <a href={href} className={`${base} ${styles}`}>
+      {children}
+    </a>
+  );
+}
 
 export function HeroSection({ hero }: { hero: SiteContent[] }) {
   const media = hero[0];
   const isVideo = media?.kind === 'video' && media?.media_url;
-  const imageUrl = media?.media_url || 'https://images.unsplash.com/photo-1511192336575-5a79af67f3d7?auto=format&fit=crop&w=1800&q=80';
+  const imageUrl = media?.media_url || 'https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=1800&q=80';
+
   return (
-    <section id="inicio" className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,.14),transparent_35%),linear-gradient(180deg,rgba(11,11,13,.15),rgba(11,11,13,.96))]" />
-      <div className="mx-auto grid min-h-[92vh] max-w-7xl items-center gap-10 px-5 py-16 md:grid-cols-2 md:px-8">
-        <div className="relative z-10 max-w-2xl">
-          <Pill>Mariachi y Trío Musical</Pill>
-          <h1 className="mt-6 text-4xl font-semibold leading-tight text-text md:text-6xl" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
-            Mariachi y Trío Musical para Eventos Especiales
+    <section id="inicio" className="relative overflow-hidden scroll-mt-28 pt-28 md:pt-32">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(212,175,55,.16),transparent_36%),radial-gradient(circle_at_80%_25%,rgba(255,255,255,.08),transparent_18%),linear-gradient(180deg,rgba(11,11,13,.12),rgba(11,11,13,.96))]" />
+      <div className="pointer-events-none absolute left-[-6rem] top-28 h-80 w-80 rounded-full bg-gold/10 blur-3xl animate-floatSlow" />
+      <div className="pointer-events-none absolute right-[-5rem] top-16 h-96 w-96 rounded-full bg-white/5 blur-3xl animate-drift" />
+
+      <div className="mx-auto grid min-h-[90vh] max-w-7xl items-center gap-12 px-5 pb-16 md:grid-cols-2 md:px-8 lg:gap-16">
+        <div data-reveal className="relative z-10 max-w-2xl">
+          <span className="inline-flex rounded-full border border-gold/20 bg-gold/10 px-4 py-1 text-[11px] uppercase tracking-[0.28em] text-gold2">
+            Mariachi y Trío Musical
+          </span>
+          <h1 className="mt-6 max-w-xl text-4xl font-semibold leading-[1.05] text-text md:text-6xl lg:text-[4.3rem]" style={{ fontFamily: 'Playfair Display, Georgia, serif' }}>
+            Música en vivo con presencia limpia, elegante y memorable.
           </h1>
           <p className="mt-6 max-w-xl text-base leading-8 text-muted md:text-lg">
-            Música en vivo para bodas, serenatas, cumpleaños y eventos privados con una presentación elegante, confiable y llena de tradición mexicana.
+            Serenatas, bodas, XV años y eventos privados con un estilo premium, una atención cercana y una experiencia visual más moderna y refinada.
           </p>
+
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Button onClick={() => document.querySelector('#contacto')?.scrollIntoView({ behavior: 'smooth' })} className="bg-gold px-7 py-3 text-sm text-black hover:bg-gold2">
-              Solicitar Cotización <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-            <Button onClick={() => document.querySelector('#videos')?.scrollIntoView({ behavior: 'smooth' })} className="border border-gold/35 bg-transparent px-7 py-3 text-sm text-text hover:bg-gold/10">
-              Ver Videos <Play className="ml-2 h-4 w-4" />
-            </Button>
+            <ActionLink href="#contacto">
+              WhatsApp directo <ArrowRight className="ml-2 h-4 w-4" />
+            </ActionLink>
+            <ActionLink href="#videos" variant="secondary">
+              Ver videos <Play className="ml-2 h-4 w-4" />
+            </ActionLink>
           </div>
-          <div className="mt-10 grid max-w-2xl grid-cols-3 gap-4 text-sm text-muted">
-            <div className="rounded-2xl border border-line bg-surface2/70 p-4">Bodas y XV años</div>
-            <div className="rounded-2xl border border-line bg-surface2/70 p-4">Serenatas premium</div>
-            <div className="rounded-2xl border border-line bg-surface2/70 p-4">Eventos empresariales</div>
+
+          <div className="mt-10 grid gap-3 sm:grid-cols-3">
+            {['Bodas y XV años', 'Serenatas premium', 'Eventos empresariales'].map((item) => (
+              <div key={item} className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm text-muted shadow-[0_12px_30px_rgba(0,0,0,.18)] transition duration-300 hover:-translate-y-0.5 hover:bg-white/[0.05]">
+                {item}
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4 text-xs uppercase tracking-[0.28em] text-gold2/80">
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/15 bg-gold/8 px-3 py-2">
+              <Star className="h-4 w-4 fill-current" /> Tradición
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-full border border-gold/15 bg-gold/8 px-3 py-2">
+              <Sparkles className="h-4 w-4" /> Estilo limpio
+            </span>
           </div>
         </div>
-        <div className="relative z-10">
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[1.75rem] border border-line bg-surface2 shadow-glow">
+
+        <div data-reveal className="relative z-10">
+          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-[0_30px_80px_rgba(0,0,0,.35)]">
+            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,.05),transparent_34%,rgba(0,0,0,.55))]" />
             {isVideo ? (
-              <video className="h-full w-full object-cover" src={media?.media_url || undefined} autoPlay muted loop playsInline />
+              <video className="h-[34rem] w-full object-cover md:h-[42rem]" src={media?.media_url || undefined} autoPlay muted loop playsInline />
             ) : (
-              <img src={imageUrl} alt="Mariachi elegante" className="h-full w-full object-cover" />
+              <img src={imageUrl} alt="Mariachi elegante" className="h-[34rem] w-full object-cover md:h-[42rem]" />
             )}
-            <div className="absolute inset-0 bg-hero-overlay" />
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="rounded-2xl border border-gold/20 bg-black/35 p-4 backdrop-blur-md">
-                <p className="text-xs uppercase tracking-[0.3em] text-gold2/80">Experiencia visual premium</p>
-                <p className="mt-2 text-sm text-text/90">Imágenes y videos administrables desde /admin con contraseña.</p>
+
+            <div className="absolute inset-x-0 bottom-0 p-5 md:p-6">
+              <div className="rounded-[1.5rem] border border-white/10 bg-black/35 p-5 backdrop-blur-xl">
+                <p className="text-[11px] uppercase tracking-[0.32em] text-gold2/85">Experiencia visual premium</p>
+                <p className="mt-2 text-sm leading-7 text-text/90">
+                  Un diseño limpio para que la música y las imágenes se sientan protagonistas.
+                </p>
               </div>
             </div>
           </div>
-          <div className="mt-4 flex items-center justify-between rounded-2xl border border-line bg-surface2/65 px-5 py-4 text-sm text-muted">
-            <span>Disponible para eventos en toda la región</span>
-            <span className="text-gold2">Respuesta rápida</span>
+
+          <div className="mt-4 grid gap-4 sm:grid-cols-3">
+            {[
+              ['Respuesta rápida', 'WhatsApp directo'],
+              ['Música en vivo', 'Para eventos especiales'],
+              ['Disponibilidad', 'Toda la región'],
+            ].map(([title, text]) => (
+              <div key={title} className="rounded-2xl border border-white/8 bg-white/[0.03] px-4 py-4 text-sm shadow-[0_10px_30px_rgba(0,0,0,.16)]">
+                <p className="text-text font-semibold">{title}</p>
+                <p className="mt-1 text-muted">{text}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
